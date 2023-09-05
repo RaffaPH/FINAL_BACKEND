@@ -7,7 +7,7 @@ import { createHash, generateResetToken, isValidPassword, generateAccessToken, g
 
 import emailSchema from "../validations/shared/emailValidation.js";
 import userCreateSchema from "../validations/users/userCreateValidation.js";
-import userLoginSchema from "../validations/users/userLoginValidation..js";
+import userLoginSchema from "../validations/users/userLoginValidation.js";
 import userResetPasswordSchema from "../validations/users/userResetPasswordValidation.js";
 
 class SessionManager {
