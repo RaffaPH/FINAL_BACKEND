@@ -1,0 +1,197 @@
+paths:
+  /api/sessions/login:
+    post:
+      summary: Iniciar sesión con datos de usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/loginBody"
+      tags:
+        - Session
+      responses:
+        "200":
+          description: Sesión iniciada correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: You have successfully logged in
+                  accessToken:
+                    type: string
+                    example: eyJhbGciOiJIUzI1N...
+                required:
+                  - status
+                  - message
+                  - accessToken
+        "400":
+          $ref: "#/components/responses/requestError"
+        "401":
+          $ref: "#/components/responses/notAuthenticated"
+        "500":
+          $ref: "#/components/responses/serverError"
+  /api/sessions/signup:
+    post:
+      summary: Registrar un nuevo usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/signupBody"
+      tags:
+        - Session
+      responses:
+        "201":
+          description: Usuario registrado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: You have successfully registered
+                required:
+                  - status
+                  - message
+        "400":
+          $ref: "#/components/responses/requestError"
+        "500":
+          $ref: "#/components/responses/serverError"
+  /api/sessions/logout:
+    get:
+      summary: Finalizar sesión activa
+      security:
+        - bearerAuth: []
+      tags:
+        - Session
+      responses:
+        "200":
+          description: Sesión activa finalizada correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: You have successfully logged out
+                  logoutToken:
+                    type: string
+                    example: eyJhbGciOiJIUzI1N...
+                required:
+                  - status
+                  - message
+                  - logoutToken
+        "401":
+          $ref: "#/components/responses/notAuthenticated"
+        "500":
+          $ref: "#/components/responses/serverError"
+  /api/sessions/current:
+    get:
+      summary: Obtener información de la sesión
+      security:
+        - bearerAuth: []
+      tags:
+        - Session
+      responses:
+        "200":
+          description: Información dse sesión obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    example: {}
+                required:
+                  - status
+                  - data
+        "401":
+          $ref: "#/components/responses/notAuthenticated"
+        "500":
+          $ref: "#/components/responses/serverError"
+  /api/sessions/forgotPassword: 
+    post:
+      summary: Solicitar cambio de contraseña olvidada
+      tags:
+        - Session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/forgotPasswordBody"
+      responses:
+        "200":
+          description: Solicitud enviada correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: We have sent you a mail for reset your password
+                required:
+                  - status
+                  - message
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
+  /api/sessions/resetPassword: 
+    post:
+      summary: Restablecer contraseña del usuario
+      tags:
+        - Session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/resetPasswordBody"
+      responses:
+        "200":
+          description: Contraseña restablecida correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Your password has been modified successfully
+                required:
+                  - status
+                  - message
+        "400":
+          $ref: "#/components/responses/requestError"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"

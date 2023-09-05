@@ -1,0 +1,35 @@
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID del carrito
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductInCart"
+          description: Productos del carrito
+    ProductInCart:
+      type: object
+      properties:
+        product:
+          type: string
+          description: ID del producto
+        quantity:
+          type: number
+          description: Cantidad seleccionada del producto
+  requestBodies: 
+    cartBody: 
+      type: object
+      properties: 
+        products: 
+          type: array
+          items: 
+            $ref: "#/components/schemas/ProductInCart"
+    cartProductBody:
+      type: object
+      properties: 
+        quantity: 
+          type: number

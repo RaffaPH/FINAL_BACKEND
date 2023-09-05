@@ -1,0 +1,47 @@
+components:
+  requestBodies:
+    loginBody:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Correo del usuario
+        password:
+          type: string
+          description: Contraseña del usuario
+    signupBody: 
+      type: object
+      properties: 
+        firstName:
+          type: string
+          description: Nombre del usuario
+        lastName:
+          type: string
+          description: Apellido del usuario
+        email:
+          type: string
+          description: Correo del usuario
+        age:
+          type: number
+          description: Edad del usuario
+        role:
+          type: string
+          description: ID del rol del usuario
+        password:
+          type: string
+          description: Contraseña del usuario
+    forgotPasswordBody:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Correo del usuario
+    resetPasswordBody:
+      type: object
+      properties:
+        newPassword:
+          type: string
+          description: Nueva contraseña del usuario
+        confirmNewPassword:
+          type: string
+          description: Confirmación de nueva contraseña del usuario

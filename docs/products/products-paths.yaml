@@ -1,0 +1,207 @@
+paths:
+  /api/products/:
+    get:
+      summary: Listar productos
+      tags:
+        - Products
+      parameters:
+        - name: page
+          in: query
+          description: Número de página de resultados
+          required: false
+          type: number
+        - name: limit
+          in: query
+          description: Cantidad máxima de resultados
+          required: false
+          type: number
+        - name: sort
+          in: query
+          description: Ordenamiento de resultados
+          required: false
+          type: string
+          enum: [asc, desc]
+        - name: query
+          in: query
+          description: Búsqueda por types de resultados
+          required: false
+          type: object
+      responses:
+        "200":
+          description: Productos obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    example: {}
+                required:
+                  - status
+                  - data
+        "400":
+          $ref: "#/components/responses/requestError"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
+    post:
+      summary: Crear un nuevo producto
+      security:
+        - bearerAuth: []
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/productBody"
+      responses:
+        "201":
+          description: Producto creado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Product has been created successfully
+                required:
+                  - status
+                  - message
+        "400":
+          $ref: "#/components/responses/requestError"
+        "401":
+          $ref: "#/components/responses/notAuthenticated"
+        "403":
+          $ref: "#/components/responses/notAuthorizated"
+        "500":
+          $ref: "#/components/responses/serverError"
+  /api/products/{pid}:
+    get:
+      summary: Obtener producto por ID
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Producto obtenido correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    example: {}
+                required:
+                  - status
+                  - data
+        "400":
+          $ref: "#/components/responses/requestError"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
+    put:
+      summary: Actualizar producto por ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/productBody"
+      responses:
+        "200":
+          description: Producto actualizado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Product has been updated successfully
+                  data:
+                    type: object
+                    example: {}
+                required:
+                  - status
+                  - message
+                  - data
+        "400":
+          $ref: "#/components/responses/requestError"
+        "401":
+          $ref: "#/components/responses/notAuthenticated"
+        "403":
+          $ref: "#/components/responses/notAuthorizated"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
+    delete:
+      summary: Eliminar producto por ID
+      security:
+        - bearerAuth: []
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Producto eliminado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Product has been deleted successfully
+                required:
+                  - status
+                  - message
+        "400":
+          $ref: "#/components/responses/requestError"
+        "401":
+          $ref: "#/components/responses/notAuthenticated"
+        "403":
+          $ref: "#/components/responses/notAuthorizated"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"

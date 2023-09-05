@@ -1,0 +1,81 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID del usuario
+        firstName:
+          type: string
+          description: Nombre del usuario
+        lastName:
+          type: string
+          description: Apellido del usuario
+        email:
+          type: string
+          description: Correo del usuario
+        age:
+          type: number
+          description: Edad del usuario
+        role:
+          type: string
+          description: ID del rol del usuario
+        isPremium:
+          type: string
+          description: Indicador si el usuario es premium
+        isAdmin:
+          type: boolean
+          description: Indicador si el usuario es administrador
+        password:
+          type: string
+          description: Contraseña del usuario
+        documents:
+          type: array
+          description: Documentos almacenados del usuario
+          items: 
+            type: object
+            properties: 
+              name:
+                type: string
+              reference:
+                type: string
+        last_connection:
+          type: string
+          description: Última conexión del usuario
+  requestBodies:
+    userBody:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Nombre del usuario
+        lastName:
+          type: string
+          description: Apellido del usuario
+        email:
+          type: string
+          description: Correo del usuario
+        age:
+          type: number
+          description: Edad del usuario
+        role:
+          type: string
+          description: ID del rol del usuario
+        isAdmin:
+          type: boolean
+          description: Indicador si el usuario es administrador
+        isPremium:
+          type: boolean
+          description: Indicador si el usuario es premium
+        password:
+          type: string
+          description: Contraseña del usuario
+    userDocumentsBody:
+      type: object
+      properties:
+        documents:
+          type: array
+          items:
+            type: string
+            format: binary

@@ -1,0 +1,149 @@
+paths:
+  /api/roles/:
+    get:
+      summary: Listar roles
+      tags:
+        - Roles
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Roles obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    example: []
+                required:
+                  - status
+                  - data
+        "401":
+          $ref: "#/components/responses/notAuthenticated"
+        "403":
+          $ref: "#/components/responses/notAuthorizated"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
+    post:
+      summary: Crear un nuevo rol
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/rolBody"
+      tags:
+        - Roles
+      responses:
+        "201":
+          description: Rol creado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Role has been created successfully
+                required:
+                  - status
+                  - message
+        "400":
+          $ref: "#/components/responses/requestError"
+        "401":
+          $ref: "#/components/responses/notAuthenticated"
+        "403":
+          $ref: "#/components/responses/notAuthorizated"
+        "500":
+          $ref: "#/components/responses/serverError"
+  /api/roles/{rid}:
+    get:
+      summary: Obtener rol por ID
+      tags:
+        - Roles
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rid
+          in: path
+          required: true
+          type: string
+          description: ID del rol
+      responses:
+        "200":
+          description: Rol obtenido correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    example: {}
+                required:
+                  - status
+                  - data
+        "400":
+          $ref: "#/components/responses/requestError"
+        "401":
+          $ref: "#/components/responses/notAuthenticated"
+        "403":
+          $ref: "#/components/responses/notAuthorizated"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
+    delete:
+      summary: Eliminar rol por ID
+      tags:
+        - Roles
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: rid
+          in: path
+          required: true
+          type: string
+          description: ID del rol
+      responses:
+        "200":
+          description: Rol eliminado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Role has been deleted successfully
+                required:
+                  - status
+                  - message
+        "400":
+          $ref: "#/components/responses/requestError"
+        "401":
+          $ref: "#/components/responses/notAuthenticated"
+        "403":
+          $ref: "#/components/responses/notAuthorizated"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"

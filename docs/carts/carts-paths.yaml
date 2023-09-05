@@ -1,0 +1,326 @@
+paths:
+  /api/carts/:
+    get:
+      summary: Listar carritos de compra
+      security:
+        - bearerAuth: []
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Carritos de compra obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    example: []
+                required:
+                  - status
+                  - data
+        "401":
+          $ref: "#/components/responses/notAuthenticated"
+        "403":
+          $ref: "#/components/responses/notAuthorizated"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
+    post:
+      summary: Crear un nuevo carrito de compra
+      tags:
+        - Carts
+      responses:
+        "201":
+          description: Carrito de compra creado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Cart has been created successfully
+                  data:
+                    type: object
+                required:
+                  - status
+                  - message
+                  - data
+        "500":
+          $ref: "#/components/responses/serverError"
+  /api/carts/{cid}:
+    get:
+      summary: Obtener carrito de compra por ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Carrito de compra obtenido correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                required:
+                  - status
+                  - data
+        "400": 
+          $ref: "#/components/responses/requestError"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
+    put:
+      summary: Actualizar carrito de compra
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/cartBody"
+      responses:
+        "200":
+          description: Carrito de compra actualizado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Cart has been updated successfully
+                  data:
+                    type: object
+                required:
+                  - status
+                  - message
+                  - data
+        "400": 
+          $ref: "#/components/responses/requestError"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
+    delete:
+      summary: Eliminar carrito de compra por ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Carrito de compra eliminado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Cart has been deleted successfully
+                required:
+                  - status
+                  - message
+        "400": 
+          $ref: "#/components/responses/requestError"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Agregar producto a carrito de compra
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          type: string
+        - name: pid
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Producto agregado al carrito correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Product has been added to the cart successfully
+                  data:
+                    type: object
+                required:
+                  - status
+                  - message
+                  - data
+        "400": 
+          $ref: "#/components/responses/requestError"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
+    put:
+      summary: Actualizar producto en carrito de compra
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          type: string
+        - name: pid
+          in: path
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/cartProductBody"
+      responses:
+        "200":
+          description: Producto actualizado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Product inside the cart has been updated successfully
+                  data:
+                    type: object
+                required:
+                  - status
+                  - message
+                  - data
+        "400": 
+          $ref: "#/components/responses/requestError"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
+    delete:
+      summary: Eliminar producto de carrito de compra
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          type: string
+        - name: pid
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Producto eliminado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Product inside the cart has been deleted successfully
+                  data:
+                    type: object
+                required:
+                  - status
+                  - message
+                  - data
+        "400": 
+          $ref: "#/components/responses/requestError"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
+  /api/carts/{cid}/checkout:
+    post:
+      summary: Finalizar proceso de compra
+      security:
+        - bearerAuth: []
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Proceso de compra finalizado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Your purchase has been processed successfully
+                  data:
+                    type: object
+                required:
+                  - status
+                  - message
+                  - data
+        "400": 
+          $ref: "#/components/responses/requestError"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "500":
+          $ref: "#/components/responses/serverError"
